@@ -2,14 +2,16 @@ class Level {
   enemies;
   barriers;
   backgroundObjects;
+  coins;
   levelBgLength = 8;
   levelEndX;
 
-  constructor(enemies, barriers, backgroundObjects, levelBgLength) {
+  constructor(enemies, barriers, backgroundObjects, levelBgLength, coins) {
     this.enemies = enemies;
     this.barriers = barriers;
     this.backgroundObjects = backgroundObjects;
     this.levelBgLength = levelBgLength;
+    this.coins = coins;
     this.levelEndX = 719 * this.levelBgLength;
     this.loadBackgroundObjects();
   }

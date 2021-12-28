@@ -1,5 +1,11 @@
 const level1 = new Level(
-  [new Pufferfish(), new Pufferfish(), new Pufferfish(), new Endboss()],
+  [
+    new Pufferfish(4 * 719),
+    new Pufferfish(4 * 719),
+    new Pufferfish(4 * 719),
+    new Pufferfish(4 * 719),
+    new Endboss(4 * 719),
+  ],
   [new Stone1(), new Stone2(), new Stone1()],
   [
     new BackgroundObject('img/3. Background/Layers/5. Water/L2.png', -719),
@@ -13,5 +19,17 @@ const level1 = new Level(
     new BackgroundObject('img/3. Background/Layers/3.Fondo 1/L1.png', 0),
     new BackgroundObject('img/3. Background/Layers/2. Floor/L1.png', 0),
   ],
-  4
+  4,
+  [
+    new pickableObject(4 * 719, 'img/4. Marcadores/1. Coins/3.png'),
+    new pickableObject(4 * 719, 'img/4. Marcadores/1. Coins/3.png'),
+    new pickableObject(4 * 719, 'img/4. Marcadores/1. Coins/3.png'),
+    new pickableObject(4 * 719, 'img/4. Marcadores/1. Coins/3.png'),
+    new pickableObject(4 * 719, 'img/4. Marcadores/1. Coins/3.png'),
+    new pickableObject(4 * 719, 'img/4. Marcadores/1. Coins/3.png'),
+    new pickableObject(4 * 719, 'img/4. Marcadores/1. Coins/3.png'),
+    new pickableObject(4 * 719, 'img/4. Marcadores/1. Coins/3.png'),
+    new pickableObject(4 * 719, 'img/4. Marcadores/1. Coins/3.png'),
+    new pickableObject(4 * 719, 'img/4. Marcadores/1. Coins/3.png'),
+  ]
 );

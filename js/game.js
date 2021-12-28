@@ -4,6 +4,9 @@ let keyboard = new Keyboard();
 
 function init() {
   canvas = document.getElementById('canvas');
+}
+
+function startGame() {
   world = new World(canvas, keyboard);
 }
 

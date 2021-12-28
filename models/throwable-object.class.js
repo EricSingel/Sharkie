@@ -1,10 +1,17 @@
-class ThrowableObject extends DrawableObject {
-  speedY = 30;
-  speedX = 20;
-
-  constructor() {
-    super();
+class ThrowableObject extends MoveableObject {
+  constructor(x, y) {
+    super().loadImage('img/1.Sharkie/4.Attack/Bubble trap/Bubble.png');
+    this.x = x;
+    this.y = y;
+    this.height = 40;
+    this.width = 40;
+    this.throw();
   }
 
-  throw() {}
+  throw() {
+    this.speedY = 30;
+    setInterval(() => {
+      this.x += 10;
+    }, 25);
+  }
 }

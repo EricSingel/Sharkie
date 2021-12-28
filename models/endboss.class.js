@@ -6,12 +6,12 @@ class Endboss extends MoveableObject {
   imagesIntro = [];
   imagesFloating = [];
 
-  constructor() {
+  constructor(levelEndX) {
     super().loadImage('img/2.Enemy/3 Final Enemy/2.floating/1.png');
     this.loadIntroImg();
     this.loadFloatingImg();
     this.loadImages(this.imagesFloating);
-    this.x = 700;
+    this.x = levelEndX - 300;
     this.animate();
   }
 

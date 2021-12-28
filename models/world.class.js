@@ -1,12 +1,51 @@
 class World {
   character = new Character();
-  statusbar = new StatusBar();
+  statusbar = new StatusBar(
+    [
+      'img/4. Marcadores/green/Life/0_  copia 3.png',
+      'img/4. Marcadores/green/Life/20_ copia 4.png',
+      'img/4. Marcadores/green/Life/40_  copia 3.png',
+      'img/4. Marcadores/green/Life/60_  copia 3.png',
+      'img/4. Marcadores/green/Life/80_  copia 3.png',
+      'img/4. Marcadores/green/Life/100_  copia 2.png',
+    ],
+    0,
+    0,
+    100
+  );
+  coinbar = new StatusBar(
+    [
+      'img/4. Marcadores/green/Coin/0_  copia 4.png',
+      'img/4. Marcadores/green/Coin/20_  copia 2.png',
+      'img/4. Marcadores/green/Coin/40_  copia 4.png',
+      'img/4. Marcadores/green/Coin/60_  copia 4.png',
+      'img/4. Marcadores/green/Coin/80_  copia 4.png',
+      'img/4. Marcadores/green/Coin/100_ copia 4.png',
+    ],
+    0,
+    40,
+    0
+  );
+  bubblebar = new StatusBar(
+    [
+      'img/4. Marcadores/green/poisoned bubbles/0_ copia 2.png',
+      'img/4. Marcadores/green/poisoned bubbles/20_ copia 3.png',
+      'img/4. Marcadores/green/poisoned bubbles/40_ copia 2.png',
+      'img/4. Marcadores/green/poisoned bubbles/60_ copia 2.png',
+      'img/4. Marcadores/green/poisoned bubbles/80_ copia 2.png',
+      'img/4. Marcadores/green/poisoned bubbles/100_ copia 3.png',
+    ],
+    0,
+    80,
+    0
+  );
   throwableObjects = [];
   level = level1;
   ctx;
   canvas;
   keyboard;
   cameraX = 0;
+  coinCounter = 0;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');
@@ -19,13 +58,32 @@ class World {
 
   update() {
     setInterval(() => {
-      this.level.enemies.forEach((enemy) => {
-        if (this.character.isColliding(enemy) && !this.character.isDead()) {
-          this.character.hit();
-          this.statusbar.setPercentage(this.character.energy);
-        }
-      });
-    }, 200);
+      this.checkCollisions();
+      this.checkThrowObjects();
+    }, 500);
+  }
+
+  checkThrowObjects() {
+    if (this.keyboard.d) {
+      let bubble = new ThrowableObject(this.character.x, this.character.y);
+      this.throwableObjects.push(bubble);
+    }
+  }
+
+  checkCollisions() {
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy) && !this.character.isDead()) {
+        this.character.hit();
+        this.statusbar.setPercentage(this.character.energy);
+      }
+    });
+    this.level.coins.forEach((coin) => {
+      if (this.character.isColliding(coin)) {
+        this.level.coins.pop(coin);
+        this.coinCounter++;
+        this.coinbar.setPercentage(this.coinCounter * 10);
+      }
+    });
   }
 
   setWorld() {
@@ -42,11 +100,15 @@ class World {
 
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.barriers);
+    this.addObjectsToMap(this.level.coins);
     this.addToMap(this.character);
+    this.addObjectsToMap(this.throwableObjects);
     this.ctx.translate(-this.cameraX, 0);
 
     //---------Space for fixed Objects----------
     this.addToMap(this.statusbar);
+    this.addToMap(this.coinbar);
+    this.addToMap(this.bubblebar);
     this.ctx.translate(this.cameraX, 0);
 
     this.ctx.translate(-this.cameraX, 0);
